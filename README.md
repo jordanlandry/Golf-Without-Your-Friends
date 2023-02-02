@@ -17,7 +17,7 @@ https://www.youtube.com/watch?v=FXOsUowU4ow
 1. To download this game follow this link [Release 1.0.0](https://github.com/jordanlandry/Golf-Without-Your-Friends/releases/tag/v1.0.0) or go to releases
 2. Download game.zip
 3. Extract the "Golf without your friends" file
-4. Open Golf Without Your Friends.exe
+4. Open "Golf Without Your Friends.exe"
 
 
 ### Controls
