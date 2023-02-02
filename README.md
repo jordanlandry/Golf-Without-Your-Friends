@@ -10,6 +10,18 @@ This game was created using the Unity game engine along with C# for the scripts.
 Watch me build this project from my YouTube video
 https://www.youtube.com/watch?v=FXOsUowU4ow
 
-## How to play
+## Download and play
 
-Hold on I gotta find the file
+
+### Download
+1. To download this game follow this link [Release 1.0.0](https://github.com/jordanlandry/Golf-Without-Your-Friends/releases/tag/v1.0.0) or go to releases
+2. Download game.zip
+3. Extract the "Golf without your friends" file
+4. Open Golf3 Without Your Friends.exe
+
+
+### Controls
+
+Hold left click and move your mouse forwards to adjust the power of your shot.
+Releasing left click will shoot the shot.
+Press `esc` at any time to exit the game.
