@@ -33,13 +33,13 @@ public class BallHitScript : MonoBehaviour
     string stringScore;
     public static int totalScore;
 
-    
+
     // Variables for Power
     public Vector3 power;
     public float maxPower = 20f;
     private float powerToFloat = 0f;
-    public float powerPercent {get { return powerToFloat / maxPower;}}
-    
+    public float powerPercent { get { return powerToFloat / maxPower; } }
+
     // Mouse Inputs
     float startPos;
     float endPos;
@@ -80,6 +80,12 @@ public class BallHitScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Exit on Escape press
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         power = new Vector3(0, 0, powerToFloat);
         isMoving = !playerRB.IsSleeping();
         if (Input.GetKeyUp(KeyCode.Mouse0) && !isMoving)    // When you let go of the mouse, it will activate the shooting 
@@ -89,22 +95,23 @@ public class BallHitScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0) && !isMoving)      // When you are holding Left Click
         {
-               verticalCamLock = true;
-               calculatePower();
-        } else verticalCamLock = false;
+            verticalCamLock = true;
+            calculatePower();
+        }
+        else verticalCamLock = false;
         ShootAngle = camY;
         cameraRotate();
         readyToShoot();
 
         // Out of Bounds
         isOutOfBounds = Physics.CheckSphere(holeCheck.position, ballSize, outOfBoundsMask);
-        if(isOutOfBounds)
+        if (isOutOfBounds)
             outOfBoundsTime += 100 * Time.deltaTime;
-        if(isOutOfBounds && outOfBoundsTime > 100)
+        if (isOutOfBounds && outOfBoundsTime > 100)
             outOfBounds();
 
         isInTheHole = Physics.CheckSphere(holeCheck.position, ballSize, holeMask);
-        if(isInTheHole) 
+        if (isInTheHole)
             inTheHole();
     }
 
@@ -125,21 +132,21 @@ public class BallHitScript : MonoBehaviour
             return;
         }
         sh.playShootSound();    // Has to play the sound first so that the sound can use powerPercentage variable
-            
-        playerRB.AddForce(Quaternion.Euler(0, ShootAngle, 0) *  power, ForceMode.Impulse);
+
+        playerRB.AddForce(Quaternion.Euler(0, ShootAngle, 0) * power, ForceMode.Impulse);
         shooting = false;
         updateStroke();
         resetVariables();
     }
 
-    void cameraRotate() 
+    void cameraRotate()
     {
         camY += Input.GetAxis("Mouse X");
-        if (verticalCamLock) 
+        if (verticalCamLock)
         {
             camTransform.transform.rotation = Quaternion.Euler(camX, camY, 0);
         }
-        else  
+        else
         {
             camX -= Input.GetAxis("Mouse Y");
             camX = Mathf.Clamp(camX, -20f, 70f);
@@ -147,7 +154,7 @@ public class BallHitScript : MonoBehaviour
         }
     }
 
-    void updateStroke() 
+    void updateStroke()
     {
         string strStrokes = " Strokes";
         strokes++;
@@ -155,7 +162,7 @@ public class BallHitScript : MonoBehaviour
         txt_StrokeCounter.text = strokes + strStrokes;
     }
 
-    void calculatePower() 
+    void calculatePower()
     {
         startPos = Input.GetAxis("Mouse Y");
         endPos += Input.GetAxis("Mouse Y");
@@ -163,11 +170,11 @@ public class BallHitScript : MonoBehaviour
         powerToFloat = endPos - startPos;
         if (powerToFloat > maxPower)
             powerToFloat = maxPower;
-        if (powerToFloat < 0) 
+        if (powerToFloat < 0)
             powerToFloat = 0;
     }
 
-    void resetVariables() 
+    void resetVariables()
     {
         startPos = 0;
         endPos = 0;
@@ -176,26 +183,27 @@ public class BallHitScript : MonoBehaviour
         nextShotSoundPlayed = false;
     }
 
-    void inTheHole() 
+    void inTheHole()
     {
         calculateScore();
 
         timeInHole += Time.deltaTime;
-        if(timeInHole >= 1)
-            if(nextSceneToLoad >= SceneManager.sceneCountInBuildSettings)
+        if (timeInHole >= 1)
+            if (nextSceneToLoad >= SceneManager.sceneCountInBuildSettings)
             {
                 SceneManager.LoadScene(0);
                 nextSceneToLoad = 0;
                 Cursor.lockState = CursorLockMode.None;
-            } else SceneManager.LoadScene(nextSceneToLoad);
-            
-        if(!soundPlayed)
+            }
+            else SceneManager.LoadScene(nextSceneToLoad);
+
+        if (!soundPlayed)
             sh.playInTheHoleSound();
         soundPlayed = true;
-        
+
     }
 
-    void calculateScore() 
+    void calculateScore()
     {
         playerScore = strokes - HolePar;
 
@@ -204,7 +212,7 @@ public class BallHitScript : MonoBehaviour
             stringScore = (-1 * playerScore) + " Under Par";
         if (playerScore == -3)
             stringScore = "ALBATROSS";
-        if (playerScore == -2) 
+        if (playerScore == -2)
             stringScore = "EAGLE";
         if (playerScore == -1)
             stringScore = "BIRDIE";
@@ -218,15 +226,15 @@ public class BallHitScript : MonoBehaviour
             stringScore = "TRIPLE BOGEY";
         if (playerScore > 3)
             stringScore = playerScore + " Over Par";
-        
+
         if (strokes == 1)
             stringScore = "HOLE IN ONE!";
 
         txtScore.enabled = true;
-        txtScore.text = stringScore;    
+        txtScore.text = stringScore;
     }
 
-    void outOfBounds() 
+    void outOfBounds()
     {
         outOfBoundsTime = 0;
         playerRB.constraints = RigidbodyConstraints.FreezePosition;         // This will freeze the ball in place
@@ -242,9 +250,9 @@ public class BallHitScript : MonoBehaviour
         {
             sh.playReadyToShootSound();
             nextShotSoundPlayed = true;
-        } 
+        }
 
     }
 
-    
+
 }
