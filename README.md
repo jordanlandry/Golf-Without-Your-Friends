@@ -12,6 +12,11 @@ https://www.youtube.com/watch?v=FXOsUowU4ow
 
 ## Download and play
 
+### Play Online
+You can play the game in your browser through WebGL
+Here is the link: https://jordanlandry.github.io/Golf-Without-Your-Friends/
+_Note_ If you recieve an error or the game doesn't load, try using a different browser, or updating your browser. If neither of those options work, your system may not be compatible. 
+_Note_ WebGL does not support mobile.
 
 ### Download
 1. To download this game follow this link [Release 1.0.0](https://github.com/jordanlandry/Golf-Without-Your-Friends/releases/tag/v1.0.0) or go to releases
